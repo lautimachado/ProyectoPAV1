@@ -1,0 +1,247 @@
+USE [master]
+GO
+/****** Object:  Database [ProyectoBasePAV1]    Script Date: 28/9/2022 00:47:43 ******/
+CREATE DATABASE [ProyectoBasePAV1]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'ProyectoBasePAV1', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\ProyectoBasePAV1.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'ProyectoBasePAV1_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\ProyectoBasePAV1_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [ProyectoBasePAV1].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET RECOVERY FULL 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET  MULTI_USER 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'ProyectoBasePAV1', N'ON'
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET QUERY_STORE = OFF
+GO
+USE [ProyectoBasePAV1]
+GO
+/****** Object:  Table [dbo].[carreras]    Script Date: 28/9/2022 00:47:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[carreras](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](50) NULL,
+ CONSTRAINT [PK_tipo_carreras] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[personas]    Script Date: 28/9/2022 00:47:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[personas](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Apellido] [varchar](50) NOT NULL,
+	[FechaNacimiento] [datetime] NULL,
+	[IdSexo] [int] NOT NULL,
+	[IdTipoDocumento] [int] NOT NULL,
+	[NumeroDocumento] [varchar](50) NOT NULL,
+	[Calle] [varchar](50) NULL,
+	[NumeroCalle] [varchar](50) NULL,
+	[Soltero] [bit] NULL,
+	[Casado] [bit] NULL,
+	[Hijos] [bit] NULL,
+	[CantidadHijos] [int] NULL,
+	[IdCarrera] [int] NOT NULL,
+ CONSTRAINT [PK_Personas] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[sexos]    Script Date: 28/9/2022 00:47:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[sexos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](50) NULL,
+ CONSTRAINT [PK_sexos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tipo_documentos]    Script Date: 28/9/2022 00:47:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tipo_documentos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](max) NULL,
+ CONSTRAINT [PK_tipo_documentos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[usuarios]    Script Date: 28/9/2022 00:47:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[usuarios](
+	[IdUsuario] [int] IDENTITY(1,1) NOT NULL,
+	[NombreUsuario] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_usuarios] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[carreras] ON 
+GO
+INSERT [dbo].[carreras] ([Id], [Nombre], [Descripcion]) VALUES (1, N'Ingenieria mecanica', NULL)
+GO
+INSERT [dbo].[carreras] ([Id], [Nombre], [Descripcion]) VALUES (2, N'Ingenieria industrial', NULL)
+GO
+INSERT [dbo].[carreras] ([Id], [Nombre], [Descripcion]) VALUES (3, N'Ingenieria en sistemas de informacion', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[carreras] OFF
+GO
+SET IDENTITY_INSERT [dbo].[personas] ON 
+GO
+INSERT [dbo].[personas] ([Id], [Nombre], [Apellido], [FechaNacimiento], [IdSexo], [IdTipoDocumento], [NumeroDocumento], [Calle], [NumeroCalle], [Soltero], [Casado], [Hijos], [CantidadHijos], [IdCarrera]) VALUES (1, N'lauti', N'machado', CAST(N'2000-03-24T00:00:00.000' AS DateTime), 1, 1, N'42487241', N'', NULL, NULL, NULL, NULL, NULL, 3)
+GO
+INSERT [dbo].[personas] ([Id], [Nombre], [Apellido], [FechaNacimiento], [IdSexo], [IdTipoDocumento], [NumeroDocumento], [Calle], [NumeroCalle], [Soltero], [Casado], [Hijos], [CantidadHijos], [IdCarrera]) VALUES (2, N'lautaro', N'machado', CAST(N'2000-03-24T00:00:00.000' AS DateTime), 1, 1, N'42487241', N'Democracia', N'440', 1, 0, 0, 12, 3)
+GO
+INSERT [dbo].[personas] ([Id], [Nombre], [Apellido], [FechaNacimiento], [IdSexo], [IdTipoDocumento], [NumeroDocumento], [Calle], [NumeroCalle], [Soltero], [Casado], [Hijos], [CantidadHijos], [IdCarrera]) VALUES (3, N'lau', N'asd', CAST(N'2000-12-12T00:00:00.000' AS DateTime), 1, 1, N'42487241', N'Democracia', N'440', 1, 0, 1, 12, 1)
+GO
+SET IDENTITY_INSERT [dbo].[personas] OFF
+GO
+SET IDENTITY_INSERT [dbo].[sexos] ON 
+GO
+INSERT [dbo].[sexos] ([Id], [Nombre], [Descripcion]) VALUES (1, N'Masculino', NULL)
+GO
+INSERT [dbo].[sexos] ([Id], [Nombre], [Descripcion]) VALUES (2, N'Femenino', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[sexos] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tipo_documentos] ON 
+GO
+INSERT [dbo].[tipo_documentos] ([Id], [Nombre], [Descripcion]) VALUES (1, N'DNI', NULL)
+GO
+INSERT [dbo].[tipo_documentos] ([Id], [Nombre], [Descripcion]) VALUES (2, N'Pasaporte', NULL)
+GO
+INSERT [dbo].[tipo_documentos] ([Id], [Nombre], [Descripcion]) VALUES (3, N'Libreta universitaria', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[tipo_documentos] OFF
+GO
+SET IDENTITY_INSERT [dbo].[usuarios] ON 
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (1, N'lauti', N'123')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (2, N'rodri', N'456')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (3, N'oti', N'789')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (13, N'aldi', N'159')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (14, N'aldi', N'456')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (15, N'aldi', N'qwe')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (16, N'aldi', N'asd')
+GO
+INSERT [dbo].[usuarios] ([IdUsuario], [NombreUsuario], [Password]) VALUES (17, N'aldi', N'qwe')
+GO
+SET IDENTITY_INSERT [dbo].[usuarios] OFF
+GO
+ALTER TABLE [dbo].[personas]  WITH CHECK ADD  CONSTRAINT [FK_Personas_carreras] FOREIGN KEY([IdCarrera])
+REFERENCES [dbo].[carreras] ([Id])
+GO
+ALTER TABLE [dbo].[personas] CHECK CONSTRAINT [FK_Personas_carreras]
+GO
+ALTER TABLE [dbo].[personas]  WITH CHECK ADD  CONSTRAINT [FK_Personas_sexos] FOREIGN KEY([IdSexo])
+REFERENCES [dbo].[sexos] ([Id])
+GO
+ALTER TABLE [dbo].[personas] CHECK CONSTRAINT [FK_Personas_sexos]
+GO
+ALTER TABLE [dbo].[personas]  WITH CHECK ADD  CONSTRAINT [FK_Personas_tipo_documentos] FOREIGN KEY([IdTipoDocumento])
+REFERENCES [dbo].[tipo_documentos] ([Id])
+GO
+ALTER TABLE [dbo].[personas] CHECK CONSTRAINT [FK_Personas_tipo_documentos]
+GO
+USE [master]
+GO
+ALTER DATABASE [ProyectoBasePAV1] SET  READ_WRITE 
+GO
